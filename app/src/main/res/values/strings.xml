@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">blood pressure</string>
+    <string name="welcome_Text">欢迎使用！</string>
+    <string name="recordBP">记录血压</string>
+</resources>
