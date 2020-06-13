@@ -3,4 +3,9 @@
     <string name="welcome_Text">欢迎使用！</string>
     <string name="recordBP">记录血压</string>
     <string name="listBP">查看历史记录</string>
+    <string name="high_BP_hint" >请输入高压…</string>
+    <string name="low_BP_hint">请输入低压…</string>
+    <string name="heart_rate_hint">请输入心率…</string>
+    <string name="record_commit">确认</string>
+    <string name="searchHospital">查询附近医院</string>>
 </resources>

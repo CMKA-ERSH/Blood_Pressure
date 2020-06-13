@@ -33,4 +33,13 @@
         android:text="@string/listBP"
         android:textSize="25sp"
         android:onClick="openList"/>
+
+    <Button
+        android:id="@+id/searchHospital"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="@string/searchHospital"
+        android:textSize="25sp"
+        android:onClick="searchForHospital"/>
 </LinearLayout>

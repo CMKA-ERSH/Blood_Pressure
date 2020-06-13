@@ -7,39 +7,8 @@
     android:orientation="vertical"
     tools:context=".listBP">
 
-    <TextView
-        android:id="@+id/itemHigh"
-        android:textSize="20sp"
-
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
-    </TextView>
-
-    <TextView
-        android:id="@+id/itemLow"
-        android:textSize="20sp"
-
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
-    </TextView>
-
-    <TextView
-        android:id="@+id/itemHeartRate"
-        android:textSize="20sp"
-
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
-    </TextView>
-
-    <TextView
-        android:id="@+id/itemTime"
-        android:textSize="20sp"
-        android:gravity="right"
-        android:textColor="@color/colorPrimaryDark"
-
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        tools:ignore="RtlHardcoded">
-    </TextView>
-
+    <ListView
+        android:id="@android:id/list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 </LinearLayout>

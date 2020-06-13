@@ -7,28 +7,42 @@
     android:orientation="vertical"
     tools:context=".recordBP">
 
-    <TextView
+    <EditText
         android:id="@+id/high_BP"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="请输入高压..."
+        android:hint="@string/high_BP_hint"
+        android:inputType="number"
         android:textSize="30sp"
-        />
+        android:autofillHints="" />
 
-    <TextView
+    <EditText
         android:id="@+id/low_BP"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
-        android:hint="请输入低压..."
+        android:hint="@string/low_BP_hint"
+        android:inputType="number"
         android:textSize="30sp"
-        />
-    <TextView
+        android:autofillHints="" />
+
+    <EditText
         android:id="@+id/heartRate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
-        android:hint="请输入心率..."
+        android:hint="@string/heart_rate_hint"
+        android:inputType="number"
         android:textSize="30sp"
-        />
+        android:autofillHints="" />
+
+    <Button
+        android:id="@+id/recordCommit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="50dp"
+        android:text="@string/record_commit"
+        android:textSize="30sp"
+        android:onClick="record"/>
 </LinearLayout>
