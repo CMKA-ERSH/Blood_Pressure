@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
     Date dateUse = new Date();
     String date = simpleDateFormat.format(dateUse);
-    int i = 0;
+    int i;
     final String today_string = simpleDateFormat.format(dateUse);
     String hint;
     TextView welcomeText;
@@ -37,38 +37,46 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences spOpen = PreferenceManager.getDefaultSharedPreferences(this);
         String change = sharedPreferences.getString("date", "");
         welcomeText = findViewById(R.id.welcomeText);
-
-        if(!today_string.equals(change)){
-
-            SharedPreferences sp = getSharedPreferences("hints", Activity.MODE_PRIVATE);
-            SharedPreferences.Editor editor = sp.edit();
-            editor.putString("0", "如有身体不适，请不要认为忍忍就能过去，尽快就医。");
-            editor.putString("1","服药请谨遵医嘱。");
-            editor.putString("2", "饮食上注意少油少盐，不要吃得过饱。");
-            editor.putString("date", date);
-            editor.apply();
-
-            Log.i(TAG, "onCreate: 刷新条目");
-            String get = Integer.toString(i);
-            Log.i(TAG, "onCreate: get = " + get);
-            hint = sharedPreferences.getString(get, "");
-            welcomeText.setText(hint);
-            i = (i + 1) % 3;
-        }else{
-            Log.i(TAG, "onCreate: 不刷新条目");
-            String get = Integer.toString(i);
-            hint = sharedPreferences.getString(get, "");
-            welcomeText.setText(hint);
-        }
+        i = sharedPreferences.getInt("i", -1);
 
         SharedPreferences sp = getSharedPreferences("hints", Activity.MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
         editor.putString("0", "如有身体不适，请不要认为忍忍就能过去，尽快就医。");
         editor.putString("1","服药请谨遵医嘱。");
         editor.putString("2", "饮食上注意少油少盐，不要吃得过饱。");
-        editor.putString("date", date);
         editor.apply();
 
+        if(!today_string.equals(change)){
+            Log.i(TAG, "onCreate: 刷新条目");
+            String get;
+            if(sharedPreferences.getInt("i", -1) != -1){
+                i = (i + 1) % 3;
+            }
+            if(i == -1){
+                get = Integer.toString(0);
+            }else{
+                get = Integer.toString(i);
+            }
+            Log.i(TAG, "onCreate: get = " + get);
+            hint = sharedPreferences.getString(get, "");
+            welcomeText.setText(hint);
+
+
+            sp = getSharedPreferences("hints", Activity.MODE_PRIVATE);
+            editor = sp.edit();
+            if(i == -1){
+                editor.putInt("i", 0);
+            }else{
+                editor.putInt("i", i);
+            }
+            editor.putString("date", date);
+            editor.apply();
+        }else{
+            Log.i(TAG, "onCreate: 不刷新条目");
+            String get = Integer.toString(i);
+            hint = sharedPreferences.getString(get, "");
+            welcomeText.setText(hint);
+        }
     }
 
     public void openRecord(View btn){
