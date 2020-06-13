@@ -1,8 +1,10 @@
 package com.swufe.bloodpressure;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -35,11 +37,12 @@ public class recordBP extends AppCompatActivity {
 
     }
 
-    public void record(View btn){
+    public void record(View btn) throws InterruptedException {
         String highBP = high_BP.getText().toString();
         String lowBP = low_BP.getText().toString();
         String heartRate = heart_Rate.getText().toString();
         String date = sdf.format(datenow);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
         if(highBP.length() > 0 && lowBP.length() > 0 && heartRate.length() > 0){
             Log.i(TAG, "record: highBP = " + highBP);
@@ -54,11 +57,57 @@ public class recordBP extends AppCompatActivity {
 //            manager.deleteAll();
             manager.add(bloodPressure.get(0));
 
-            Log.i(TAG, "record: 写入完毕");
+
 
             Toast.makeText(this,"已记录",Toast.LENGTH_SHORT).show();
-            finish();
-
+            if(Integer.parseInt(highBP) > 130 && Integer.parseInt(lowBP) > 80){
+                builder.setTitle("注意").setMessage("您目前处于高血压状态，若身体不适或长期处于此状态下请立刻就医");
+                builder.setCancelable(false);
+                builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                    }
+                });
+                AlertDialog dialog = builder.create();
+                dialog.show();
+            }else if(Integer.parseInt(highBP) < 90 && Integer.parseInt(lowBP) < 60){
+                builder.setTitle("注意").setMessage("您目前处于低血压状态，若身体不适或长期处于此状态下请立刻就医");
+                builder.setCancelable(false);
+                builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                    }
+                });
+                AlertDialog dialog = builder.create();
+                dialog.show();
+            }else if(Integer.parseInt(heartRate) > 100){
+                builder.setTitle("注意").setMessage("您目前心率过快，若身体不适或长期处于此状态下请立刻就医");
+                builder.setCancelable(false);
+                builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                    }
+                });
+                AlertDialog dialog = builder.create();
+                dialog.show();
+            }else if(Integer.parseInt(heartRate) < 60){
+                builder.setTitle("注意").setMessage("您目前心率过慢，若身体不适或长期处于此状态下请立刻就医");
+                builder.setCancelable(false);
+                builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                    }
+                });
+                AlertDialog dialog = builder.create();
+                dialog.show();
+            }else{
+                finish();
+            }
+            Log.i(TAG, "record: 写入完毕");
         }else{
             Toast.makeText(this,"记录不完整，请检查",Toast.LENGTH_SHORT).show();
         }
