@@ -32,9 +32,9 @@ public class BloodPressureManager {
         db.delete(TBNAME, null, null);
         db.close();
     }
-    public void delete(int id){
+    public void delete(String date){
         SQLiteDatabase db = dbHelper.getWritableDatabase();
-        db.delete(TBNAME, "ID=?", new String[]{String.valueOf(id)});
+        db.delete(TBNAME, "DATE=?", new String[]{String.valueOf(date)});
         db.close();
     }
     public void update(BloodPressureItem item){
@@ -44,7 +44,7 @@ public class BloodPressureManager {
         values.put("lowbp", item.getLowBP());
         values.put("heartrate", item.getHeartRate());
         values.put("date", item.getDate());
-        db.update(TBNAME, values, "ID=?", new String[]{String.valueOf(item.getId())});
+        db.update(TBNAME, values, "DATE=?", new String[]{String.valueOf(item.getDate())});
         db.close();
     }
     public List<BloodPressureItem> listAll(){
