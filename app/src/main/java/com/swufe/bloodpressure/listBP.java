@@ -38,9 +38,9 @@ public class listBP extends ListActivity implements AdapterView.OnItemLongClickL
         BloodPressureManager manager = new BloodPressureManager(this);
         for(BloodPressureItem item: manager.listAll()){
             HashMap<String, String> map = new HashMap<String, String>();
-            map.put("highBP", item.getHighBP());
-            map.put("lowBP", item.getLowBP());
-            map.put("heartRate", item.getHeartRate());
+            map.put("highBP", "高压：" +  item.getHighBP());
+            map.put("lowBP", "低压：" +  item.getLowBP());
+            map.put("heartRate", "心率：" + item.getHeartRate());
             map.put("date", item.getDate());
             Log.i(TAG, "run: map = " + map);
 
@@ -57,6 +57,8 @@ public class listBP extends ListActivity implements AdapterView.OnItemLongClickL
         this.setListAdapter(listItemAdapter);
         Log.i(TAG, "run: 展示完毕");
         getListView().setOnItemLongClickListener(this);
+
+        Toast.makeText(this,"长按可对记录进行操作",Toast.LENGTH_SHORT).show();
 
     }
 
@@ -95,9 +97,9 @@ public class listBP extends ListActivity implements AdapterView.OnItemLongClickL
             public void onClick(DialogInterface dialog, int which) {
                 Intent modification = new Intent(getApplicationContext(), BloodPressureModification.class);
                 //传递数据
-                modification.putExtra("highBP", bloodPressureList.get(position).get("highBP"));
-                modification.putExtra("lowBP", bloodPressureList.get(position).get("lowBP"));
-                modification.putExtra("heartRate", bloodPressureList.get(position).get("heartRate"));
+                modification.putExtra("highBP", bloodPressureList.get(position).get("highBP").substring(3));
+                modification.putExtra("lowBP", bloodPressureList.get(position).get("lowBP").substring(3));
+                modification.putExtra("heartRate", bloodPressureList.get(position).get("heartRate").substring(3));
                 modification.putExtra("position", positionUse);
                 Log.i(TAG, "onClick: position = " + positionUse);
                 Log.i(TAG, "onClick: 参数已传递");
@@ -118,13 +120,13 @@ public class listBP extends ListActivity implements AdapterView.OnItemLongClickL
             assert bundle != null;
             String dateKeep = bloodPressureList.get(bundle.getInt("position")).get("date");
 
-            String highBPInput = bundle.getString("highBPModification");
+            String highBPInput =  bundle.getString("highBPModification");
             String lowBPInput = bundle.getString("lowBPModification");
             String heartRateInput = bundle.getString("heartRateModification");
             HashMap<String, String> map = new HashMap<String, String>();
-            map.put("highBP", highBPInput);
-            map.put("lowBP", lowBPInput);
-            map.put("heartRate", heartRateInput);
+            map.put("highBP", "高压：" + highBPInput);
+            map.put("lowBP", "低压：" + lowBPInput);
+            map.put("heartRate", "心率：" + heartRateInput);
             map.put("date", dateKeep);
             Log.i(TAG, "onActivityResult: map = " + map);
             //更新数据库
